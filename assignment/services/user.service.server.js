@@ -1,12 +1,153 @@
 module.exports = function (app) {
 
   var userModel = require("../model/user/user.model.server");
+  var passport = require('passport');
+  var LocalStrategy = require('passport-local').Strategy;
+  var FacebookStrategy = require('passport-facebook').Strategy;
+  var bcrypt = require("bcrypt-nodejs");
+
+  passport.serializeUser(serializeUser);
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  passport.deserializeUser(deserializeUser);
+  function localStrategy(username, password, done) {
+    userModel
+      .findUserByUsername(username)
+      .then(
+        function(user) {
+          if(user.username === username && bcrypt.compareSync(password, user.password)) {
+            return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        },
+        function(err) {
+          if (err) { return done(err); }
+        }
+      );
+  }
+
+
+  function deserializeUser(user, done) {
+    userModel
+      .findUserById(user._id)
+      .then(
+        function(user){
+          done(null, user);
+        },
+        function(err){
+          done(err, null);
+        }
+      );
+  }
+
+  passport.use(new LocalStrategy(localStrategy));
 
   app.post("/api/user", createUser);
   app.get("/api/user/:userId",findUserById);
   app.get("/api/user", findUsers);
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
+  app.post  ('/api/login', passport.authenticate('local'), login);
+  app.post('/api/logout', logout);
+  app.post ('/api/register', register);
+  app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
+  /*
+  app.get('/facebook/oauth2callback',
+    passport.authenticate('facebook', {
+      successRedirect: 'http://localhost:4200/profile',
+      failureRedirect: 'http://localhost:4200/login'
+    }));
+*/
+  app.get('/facebook/oauth2callback', function(req, res, next) {
+    passport.authenticate('facebook', function(err, user, info) {
+      //console.log(req);
+      //console.log(res);
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('http://localhost:4200/login'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        return res.redirect('http://localhost:4200/user/' + user._id);
+      });
+    })(req, res, next);
+  });
+
+  var facebookConfig = {
+  };
+
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel
+      .findUserByFacebookId(profile.id)
+      .then(
+        function(user) {
+          if(user) {
+            return done(null, user);
+          } else {
+            //console.log(profile);
+            var names = profile.displayName.split(" ");
+            var newFacebookUser = {
+              username: names[0],
+              lastName:  names[1],
+              firstName: names[0],
+              email:     profile.emails ? profile.emails[0].value:"",
+              facebook: {
+                id:    profile.id,
+                token: token
+              }
+            };
+            return userModel.createUser(newFacebookUser);
+          }
+        },
+        function(err) {
+          if (err) { return done(err); }
+        }
+      )
+      .then(
+        function(user){
+          return done(null, user);
+        },
+        function(err){
+          if (err) { return done(err); }
+        }
+      );
+  }
+
+
+  function logout(req, res) {
+    req.logOut();
+    res.sendStatus(200);
+  }
+
+  function login(req, res) {
+    var user = req.user;
+    res.json(user);
+  }
+
+  function register (req, res) {
+    var user = req.body;
+    user.password = bcrypt.hashSync(user.password);
+    userModel
+      .createUser(user)
+      .then(
+        function(user){
+          if(user){
+            req.login(user, function(err) {
+              if(err) {
+                res.status(400).send(err);
+              } else {
+                res.json(user);
+              }
+            });
+          }
+        }
+      );
+  }
+
 
   function createUser(req,res) {
     var user=req.body;

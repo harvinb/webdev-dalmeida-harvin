@@ -13,6 +13,8 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('f') regForm: NgForm;
 
+  username: string;
+  password: string;
   errorFlag: boolean;
   errorMsg: string;
 
@@ -20,25 +22,44 @@ export class RegisterComponent implements OnInit {
               private router: Router) { }
 
   register() {
+    this.username = this.regForm.value.username;
+    this.password = this.regForm.value.password;
 
-    this.userService.findUserByUsername(this.regForm.value.username).
+    console.log(this.username);
+    console.log(this.password);
+    console.log(this.regForm.value.verifypwd);
+
+    this.userService.findUserByUsername(this.username).
     subscribe((user: User) => {
       if (user) {
         // console.log(user);
         this.errorMsg = 'Username is already taken';
         this.errorFlag = true;
-      } else if (this.regForm.value.password !== this.regForm.value.verifypwd) {
+      } else if (this.password !== this.regForm.value.verifypwd) {
         this.errorMsg = 'Passwords do not match';
         this.errorFlag = true;
       } else {
+        /*
         this.userService.createUser
-        (this.regForm.value.username, this.regForm.value.password)
+        (this.username, this.password)
           .subscribe((newuser: User) => {
             if (newuser) {
               console.log(newuser);
               this.router.navigate(['/user', newuser._id]);
             }
           });
+          */
+
+        this.userService.register(this.username, this.password)
+          .subscribe(
+            (data: any) => {
+              this.router.navigate(['/user', data._id]);
+            },
+            (error: any) => {
+              this.errorMsg = error._body;
+              this.errorFlag = true;
+            }
+          );
       }
     });
   }

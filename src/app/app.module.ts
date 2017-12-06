@@ -36,6 +36,8 @@ import {PlayerdetailsComponent} from './project/components/playerdetails/playerd
 import {MatchServiceClient} from './project/services/match.service.client';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
+import {SharedService} from './services/shared.service';
+import {AuthGuard} from './services/auth-guard.service';
 
 @NgModule({
   // Declare components here
@@ -72,7 +74,8 @@ import { WidgetTextComponent } from './components/widget/widget-edit/widget-text
     Routing
   ],
   // Client Side services here
-  providers: [UserService, WebsiteService, PageService, WidgetService, PlayerServiceClient, MatchServiceClient],
+  providers: [UserService, WebsiteService, PageService, WidgetService, PlayerServiceClient, MatchServiceClient,
+              SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

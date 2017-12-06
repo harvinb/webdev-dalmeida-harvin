@@ -66,6 +66,7 @@ p.pull-right {
   right: 0px;
   background-color: grey;
   padding: 7px;
+  z-index: 10;
   border-bottom-left-radius: 10px;
   opacity: 0.7;
 }
@@ -78,8 +79,9 @@ p.pull-right {
   position: relative;
   padding-bottom: 56.25%;
   padding-top: 25px;
-  margin-right: 40px; /* to avoid overlap between cog and youtube share */
+  /* margin-right: 100px; /* to avoid overlap between cog and youtube share */
   height: 0;
+  width: 98%;
 }
 .youtubeWrap iframe {
   position: absolute;

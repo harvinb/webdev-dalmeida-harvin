@@ -8,7 +8,13 @@ var UserSchema = mongoose.Schema ({
   email: String,
   phone: String,
   // websites: [Website],
-  dateCreated: Date
+  dateCreated: Date,
+
+  facebook: {
+    id:    String,
+    token: String
+  }
+
 
 }, {collection: 'user'});
 
