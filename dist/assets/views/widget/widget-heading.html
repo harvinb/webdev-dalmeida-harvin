@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for making website for mobile-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="initial-scale=1, user-scalable=no">
+
+
+  <meta charset="UTF-8">
+  <title>Widget Header</title>
+  <link href="../../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+
+
+  <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
+
+  <link href="../../css/styles.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <p class="navbar-text pull-left">
+      <a href="widget-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Widget Edit</b>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right">
+      <a href="widget-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-ok"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <form>
+    <div class="form-group">
+      <label for="headingname">Name</label>
+      <input type="text" class="form-control" id="headingname" placeholder="Heading Name">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="headingtext">Text</label>
+      <input type="text" class="form-control" id="headingtext" placeholder="Heading Text">
+    </div>
+  </form>
+
+  <form>
+    <div class="form-group">
+      <label for="headingsize">Size</label>
+      <input type="text" class="form-control" id="headingsize" placeholder="2">
+    </div>
+  </form>
+
+  <a class="btn btn-danger btn-block "
+     href="widget-list.html" >Delete</a>
+
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container-fluid">
+    <p class="navbar-text pull-right">
+      <a href="../user/profile.html" class="navbar-link">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+</body>
+</html>

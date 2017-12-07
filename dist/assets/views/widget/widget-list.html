@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for making website for mobile-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="initial-scale=1, user-scalable=no">
+
+
+  <meta charset="UTF-8">
+  <title>Widget List</title>
+  <link href="../../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+
+
+  <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
+
+  <link href="../../css/styles.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <p class="navbar-text pull-left">
+      <a href="../page/page-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Widgets</b>
+      </a>
+    </p>
+
+    <!--plus mark-->
+    <p class="navbar-text pull-right">
+      <a href="widget-chooser.html" class="navbar-link">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+
+  <div class="hbd-widget">
+    <div class="hbd-toolbar">
+      <a href="widget-heading.html" class="navbar-link">
+        <span class="glyphicon glyphicon-cog"></span></a>
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </div>
+    <h1>Fun Page</h1>
+  </div>
+
+  <div class="hbd-widget">
+    <div class="hbd-toolbar">
+      <a href="widget-image.html" class="navbar-link">
+        <span class="glyphicon glyphicon-cog"></span></a>
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </div>
+    <img class="hbd-content" src="http://lorempixel.com/400/200">
+  </div>
+
+  <div class="hbd-widget">
+    <div class="hbd-toolbar">
+      <a href="widget-youtube.html" class="navbar-link">
+        <span class="glyphicon glyphicon-cog"></span></a>
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </div>
+    <div class="youtubeWrap">
+      <iframe width="560"
+              height="315"
+              src="https://www.youtube.com/embed/euAqzOQO6Bw"
+              frameborder="0"
+              allowfullscreen>
+
+      </iframe>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container-fluid">
+    <p class="navbar-text pull-right">
+      <a href="../user/profile.html" class="navbar-link">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+</body>
+</html>

@@ -67,15 +67,18 @@ module.exports = function (app) {
       //console.log(req);
       //console.log(res);
       if (err) { return next(err); }
-      if (!user) { return res.redirect('http://localhost:4200/login'); }
+      if (!user) { return res.redirect('/login'); }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        return res.redirect('http://localhost:4200/user/' + user._id);
+        return res.redirect('/user/' + user._id);
       });
     })(req, res, next);
   });
 
   var facebookConfig = {
+    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
   };
 
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
