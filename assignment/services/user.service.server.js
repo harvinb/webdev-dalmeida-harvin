@@ -75,11 +75,22 @@ module.exports = function (app) {
     })(req, res, next);
   });
 
-  var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID,
-    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-  };
+  var facebookConfig;
+
+  if(process.env.MLAB_USERNAME_WEBDEV) { // check if running remotely
+    facebookConfig = {
+      clientID     : process.env.FACEBOOK_CLIENT_ID,
+      clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+      callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    };
+  } else {
+    facebookConfig = {
+      clientID     : "1652422851476258",
+      clientSecret : "944149175e1cf7215a0467aea2ebcc05",
+      callbackURL  : "http://localhost:3100/facebook/oauth2callback"
+    };
+  }
+
 
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
