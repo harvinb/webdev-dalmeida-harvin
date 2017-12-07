@@ -91,6 +91,7 @@ module.exports = function (app) {
     };
   }
 
+  // https://webdev-dalmeida-harvin.herokuapp.com/facebook/oauth2callback
 
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
